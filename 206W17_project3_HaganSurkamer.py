@@ -59,7 +59,7 @@ def get_user_tweets(user):
 	return twitter_results
 # Write an invocation to the function for the "umich" user timeline and save the result in a variable called umich_tweets:
 umich_tweets = get_user_tweets("umich")
-print(umich_tweets)
+#print(umich_tweets)
 ## Task 2 - Creating database and loading data into database
 
 # You will be creating a database file: project3_tweets.db
@@ -143,20 +143,20 @@ conn.commit()
 q1 = 'SELECT * FROM Users'
 cur.execute(q1)
 users_info = cur.fetchall()
-print(users_info)
+#print(users_info)
 
 # Make a query to select all of the user screen names from the database. Save a resulting list of strings (NOT tuples, the strings inside them!) in the variable screen_names. HINT: a list comprehension will make this easier to complete!
 q2 = 'SELECT screen_name FROM Users'
 cur.execute(q2)
 screen_tuple = cur.fetchall()
 screen_names = [x[0] for x in screen_tuple]
-print(screen_names)
+#print(screen_names)
 
 # Make a query to select all of the tweets (full rows of tweet information) that have been retweeted more than 25 times. Save the result (a list of tuples, or an empty list) in a variable called more_than_25_rts.
 q3 = 'SELECT * FROM Tweets WHERE retweets >= 25'
 cur.execute(q3)
 more_than_25_rts = cur.fetchall()
-print(more_than_25_rts)
+#print(more_than_25_rts)
 
 
 # Make a query to select all the descriptions (descriptions only) of the users who have favorited more than 25 tweets. Access all those strings, and save them in a variable called descriptions_fav_users, which should ultimately be a list of strings.
@@ -171,15 +171,20 @@ print(descriptions_fav_users)
 q5 = "SELECT Users.screen_name, Tweets.text FROM Tweets INNER JOIN Users on Tweets.user_id = Users.user_id WHERE Tweets.retweets >= 5"
 cur.execute(q5)
 joined_result = cur.fetchall()
-print(joined_result)
+#print(joined_result)
 
 
 ## Task 4 - Manipulating data with comprehensions & libraries
 
 ## Use a set comprehension to get a set of all words (combinations of characters separated by whitespace) among the descriptions in the descriptions_fav_users list. Save the resulting set in a variable called description_words.
+word_lst = []
+for line in descriptions_fav_users:
+	wrds = line.split()
+	for word in wrds:
+		word_lst.append(word)
+description_words = {word for word in word_lst}
 
-
-
+print(description_words)
 ## Use a Counter in the collections library to find the most common character among all of the descriptions in the descriptions_fav_users list. Save that most common character in a variable called most_common_char. Break any tie alphabetically (but using a Counter will do a lot of work for you...).
 
 
