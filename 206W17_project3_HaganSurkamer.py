@@ -171,7 +171,7 @@ print(descriptions_fav_users)
 q5 = "SELECT Users.screen_name, Tweets.text FROM Tweets INNER JOIN Users on Tweets.user_id = Users.user_id WHERE Tweets.retweets >= 5"
 cur.execute(q5)
 joined_result = cur.fetchall()
-#print(joined_result)
+print(joined_result)
 
 
 ## Task 4 - Manipulating data with comprehensions & libraries
@@ -192,6 +192,10 @@ print(description_words)
 ## Putting it all together...
 # Write code to create a dictionary whose keys are Twitter screen names and whose associated values are lists of tweet texts that that user posted. You may need to make additional queries to your database! To do this, you can use, and must use at least one of: the DefaultDict container in the collections library, a dictionary comprehension, list comprehension(s). Y
 # You should save the final dictionary in a variable called twitter_info_diction.
+twitter_info_diction = collections.defaultdict(list)
+for x in joined_result:
+    twitter_info_diction[x[0]].append(x[1])
+print(twitter_info_diction)
 
 
 
