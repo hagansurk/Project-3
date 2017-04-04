@@ -186,16 +186,18 @@ description_words = {word for word in word_lst}
 
 print(description_words)
 ## Use a Counter in the collections library to find the most common character among all of the descriptions in the descriptions_fav_users list. Save that most common character in a variable called most_common_char. Break any tie alphabetically (but using a Counter will do a lot of work for you...).
-
-
+wrd_str = " ".join(word for word in word_lst)
+wrd_str = wrd_str.replace(" ", "")
+most_char = collections.Counter(wrd_str).most_common(1)[0]
+most_common_char = most_char[0]
 
 ## Putting it all together...
 # Write code to create a dictionary whose keys are Twitter screen names and whose associated values are lists of tweet texts that that user posted. You may need to make additional queries to your database! To do this, you can use, and must use at least one of: the DefaultDict container in the collections library, a dictionary comprehension, list comprehension(s). Y
 # You should save the final dictionary in a variable called twitter_info_diction.
-twitter_info_diction = collections.defaultdict(list)
-for x in joined_result:
-    twitter_info_diction[x[0]].append(x[1])
-print(twitter_info_diction)
+twitter_diction = collections.defaultdict(list)
+for key, value in joined_result:
+    twitter_diction[key].append(value)
+twitter_info_diction = dict(twitter_diction)
 
 
 
